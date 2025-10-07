@@ -1,5 +1,3 @@
-# Piscine-Sprint-1-Project-Spaced-Repetition-Tracker
-
 # :brain: Spaced Repetition Tracker
 
 A simple web app that helps track study topics using the **spaced repetition** technique.
