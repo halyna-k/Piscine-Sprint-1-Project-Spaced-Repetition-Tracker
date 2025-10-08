@@ -4,13 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spaced Repetition Tracker</title>
-  <!-- <script type="module" src="script.mjs"></script> -->
+  <script type="module" src="script.mjs" defer></script>
 </head>
 <body>
-  
-  <lable for="user">Select User:</lable>
-  <select id="user">
-    <option value="" disabled selected>--Select a user --</option>
+  <h1>Spaced Repetition Tracker</h1>
+
+  <!-- User selection -->
+  <label for="user-select">Select User:</label>
+  <select id="user-select" aria-label="Select user">
+    <option value="" disabled selected>-- Select a user --</option>
     <option value="user1">User 1</option>
     <option value="user2">User 2</option>
     <option value="user3">User 3</option>
@@ -18,20 +20,29 @@
     <option value="user5">User 5</option>
   </select>
 
-  <div id="agenda-list">
-    <p>No User data</p>
-    <ul id="list-items">
-        <li id="item">Item 1</li>   
+  <!-- Agenda display -->
+  <h2>Agenda</h2>
+  <div id="agenda-list" aria-live="polite">
+    <p>No user data</p>
+    <ul id="agenda-items">
+      <!-- Dynamic list items will go here -->
     </ul>
   </div>
 
-  <form id="add-agenda-form">
-    <input type="text" id="agenda-title" placeholder="Agenda title" required />
-    <input type="date" id="agenda-date" required />
+  <!-- Form to add new topic -->
+  <h2>Add New Topic</h2>
+  <form id="add-topic-form">
+    <div>
+      <label for="topic">Topic:</label>
+      <input type="text" id="topic" name="topic" placeholder="Enter topic..." required />
+    </div>
+
+    <div>
+      <label for="date">Start date:</label>
+      <input type="date" id="date" name="date" required />
+    </div>
+
     <button type="submit">Add</button>
   </form>
-
-
- 
 </body>
 </html>
