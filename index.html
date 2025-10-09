@@ -20,11 +20,12 @@
     <option value="user5">User 5</option>
   </select>
 
-  <div id="no-selection-msg" role="status">No user selected.</div>
-
-  <!-- Agenda display --> 
-    <h2>Agenda</h2>
-    <div id="agenda-list">Please select a user to view their agenda.</div>
+  <!-- Agenda display -->
+  <h2>Agenda</h2>
+  <div id="agenda-list" aria-live=“polite”>
+    <ul id="agenda-items">
+    </ul>
+  </div>
   
 
   <!-- Form to add new topic -->
