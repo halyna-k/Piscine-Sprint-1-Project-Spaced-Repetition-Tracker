@@ -66,4 +66,4 @@ Each user can:
 
 ## :globe_with_meridians: Live Demo
 
-[View Live Project on Netlify](https://spaced-repetition-tracker.netlify.app)
+[View Live Project on Netlify](https://cyf-cpaced-repetition-tracker.netlify.app)
