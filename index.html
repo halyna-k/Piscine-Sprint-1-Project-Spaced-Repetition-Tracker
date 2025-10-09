@@ -20,15 +20,12 @@
     <option value="user5">User 5</option>
   </select>
 
-  <!-- Agenda display -->
-  <h2>Agenda</h2>
-  <div id="agenda-list" aria-live="polite">
-    <p>No user data</p>
-    <ul id="agenda-items">
-      <!-- Dynamic list items will go here -->
-      <!-- Each topic should include a list of revision dates: 1 Week, 1 Month, 3 Months, 6 Months, 1 Year -->
-    </ul>
-  </div>
+  <div id="no-selection-msg" role="status">No user selected.</div>
+
+  <!-- Agenda display --> 
+    <h2>Agenda</h2>
+    <div id="agenda-list">Please select a user to view their agenda.</div>
+  
 
   <!-- Form to add new topic -->
   <h2>Add New Topic</h2>
@@ -43,7 +40,7 @@
       <input type="date" id="date" name="date" required />
     </div>
 
-    <button type="submit">Add</button>
+    <button id="add-btn" type="submit">Add</button>
   </form>
 </body>
 </html>
