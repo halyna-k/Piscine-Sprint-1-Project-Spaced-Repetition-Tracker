@@ -35,12 +35,23 @@ export function calculateRevisionDates(startDate) {
   ];
 
   // Function to add intervals to a date
-  const addInterval = (date, { days=0, months=0, years=0 }) => {
-    const d = new Date(date);
-    d.setDate(d.getDate() + days);
-    d.setMonth(d.getMonth() + months);
-    d.setFullYear(d.getFullYear() + years);
-    return d;
+  const addInterval = (date, { days = 0, months = 0, years = 0 }) => {
+
+    // Add days first
+    const d = new Date(Date.UTC(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate() + days
+    ));
+
+    // Then add months and years
+    const y = d.getUTCFullYear() + years;
+    const m = d.getUTCMonth() + months;
+    const day = d.getUTCDate();
+
+    // Adjust if target month has fewer days
+    const daysInMonth = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+    return new Date(Date.UTC(y, m, Math.min(day, daysInMonth)));
   };
 
   return intervals.map(interval => addInterval(baseDate, interval));
