@@ -62,7 +62,7 @@ Each user can:
   http-server
 ```
 
-## Open the URL displayed in your browser (usually http://localhost:8080)
+Open the URL displayed in your browser (usually http://localhost:8080)
 
 ## :globe_with_meridians: Live Demo
 
