@@ -35,12 +35,23 @@ export function calculateRevisionDates(startDate) {
   ];
 
   // Function to add intervals to a date
-  const addInterval = (date, { days=0, months=0, years=0 }) => {
-    const d = new Date(date);
-    d.setDate(d.getDate() + days);
-    d.setMonth(d.getMonth() + months);
-    d.setFullYear(d.getFullYear() + years);
-    return d;
+  const addInterval = (date, { days = 0, months = 0, years = 0 }) => {
+
+    // Add days first
+    const d = new Date(Date.UTC(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate() + days
+    ));
+
+    // Then add months and years
+    const y = d.getUTCFullYear() + years;
+    const m = d.getUTCMonth() + months;
+    const day = d.getUTCDate();
+
+    // Adjust if target month has fewer days
+    const daysInMonth = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+    return new Date(Date.UTC(y, m, Math.min(day, daysInMonth)));
   };
 
   return intervals.map(interval => addInterval(baseDate, interval));
@@ -88,32 +99,26 @@ export function renderAgendaList(userId) {
 /**
  * Handle adding a new topic for a user
  */
-export function handleAddTopic(e, userId, { topicInput, dateInput }) {
+export function handleAddTopic(e, userId, { topicInput, dateInput }, addDataFn = addData, renderFn = renderAgendaList ) {
   e.preventDefault();
 
-  if (!userId) {
-    alert("Please select a user first.");
-    return;
-  }
+  if (!userId) throw new Error("Please select a user first.");
 
   const topic = topicInput.value.trim();
   const date = dateInput.value;
 
-  if (!topic || !date) {
-    alert("Please fill in both the topic and date.");
-    return;
-  }
+  if (!topic || !date) throw new Error("Please fill in both the topic and date.");
 
   // Prepare new topic
   const newTopic = { id: Date.now(), topic, date };
 
-  // Save to storage
-  addData(userId,  newTopic);
+  // Save to storage (use injected function)
+  addDataFn(userId, newTopic);
 
   // Clear inputs
   topicInput.value = "";
   dateInput.value = "";
 
-  // Re-render updated agenda
-  renderAgendaList(userId);
+  // Re-render updated agenda (use injected function)
+  renderFn(userId);
 }
