@@ -70,7 +70,7 @@ export function renderAgendaList(userId) {
   // Fetch user’s agenda
   const agenda = getData(userId) || [];
   if (agenda.length === 0) {
-    list.innerHTML = "<p>No data</p>";
+    list.innerHTML = "<li>No data</li>";
     return;
   }
 
