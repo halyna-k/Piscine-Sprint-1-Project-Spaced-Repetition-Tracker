@@ -1,4 +1,4 @@
-import { getUserIds, calculateRevisionDates } from "./common.mjs";
+import { getUserIds, calculateRevisionDates, handleAddTopic } from "./common.mjs";
 import assert from "node:assert";
 import test from "node:test";
 
@@ -21,4 +21,29 @@ test("Correct revision dates are calculated", () => {
   const calculatedDates = calculateRevisionDates(startDate).map(normalize);
 
   assert.deepEqual(calculatedDates, expectedDates);
+});
+
+test("Submit form: valid input", () => {
+  let addedData = null;
+  let renderedUserId = null;
+
+  const mockAddData = (userId, topic) => { addedData = { userId, topic }; };
+  const mockRenderAgendaList = (userId) => { renderedUserId = userId; };
+
+  const topicInput = { value: "Practice Testing" };
+  const dateInput = { value: "2025-11-01" };
+  const selectedUser = "user1";
+
+  const e = { preventDefault: () => { e.called = true; } };
+  e.called = false;
+
+  handleAddTopic( e, selectedUser, { topicInput, dateInput }, mockAddData, mockRenderAgendaList);
+
+  assert.equal(e.called, true);
+  assert.equal(addedData.userId, selectedUser);
+  assert.equal(addedData.topic.topic, "Practice Testing");
+  assert.equal(addedData.topic.date, "2025-11-01");
+  assert.equal(topicInput.value, "");
+  assert.equal(dateInput.value, "");
+  assert.equal(renderedUserId, selectedUser);
 });

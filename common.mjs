@@ -99,32 +99,26 @@ export function renderAgendaList(userId) {
 /**
  * Handle adding a new topic for a user
  */
-export function handleAddTopic(e, userId, { topicInput, dateInput }) {
+export function handleAddTopic(e, userId, { topicInput, dateInput }, addDataFn = addData, renderFn = renderAgendaList ) {
   e.preventDefault();
 
-  if (!userId) {
-    alert("Please select a user first.");
-    return;
-  }
+  if (!userId) throw new Error("Please select a user first.");
 
   const topic = topicInput.value.trim();
   const date = dateInput.value;
 
-  if (!topic || !date) {
-    alert("Please fill in both the topic and date.");
-    return;
-  }
+  if (!topic || !date) throw new Error("Please fill in both the topic and date.");
 
   // Prepare new topic
   const newTopic = { id: Date.now(), topic, date };
 
-  // Save to storage
-  addData(userId,  newTopic);
+  // Save to storage (use injected function)
+  addDataFn(userId, newTopic);
 
   // Clear inputs
   topicInput.value = "";
   dateInput.value = "";
 
-  // Re-render updated agenda
-  renderAgendaList(userId);
+  // Re-render updated agenda (use injected function)
+  renderFn(userId);
 }
